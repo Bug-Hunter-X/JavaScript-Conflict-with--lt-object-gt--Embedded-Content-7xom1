@@ -1,0 +1,26 @@
+<p>To solve the issue of JavaScript conflicts with embedded content in HTML using the &lt;object&gt; tag, a good approach is to use Namespaces.  This helps avoid naming collisions and ensures that each JavaScript code runs in its own isolated context, preventing unexpected interference.</p><p>In the example below, we wrap our scripts in an Immediately Invoked Function Expression (IIFE) to create a private scope.</p><pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Solution&lt;/title&gt;
+&lt;script&gt;
+  (function() {
+    // Namespace for main page scripts
+    window.myApp = {};
+    myApp.myVariable = "Value from main page";
+    myApp.myFunction = function() {
+      console.log("Main page function");
+    }
+  })();
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;object data="mydocument.pdf" type="application/pdf"&gt;
+    &lt;param name="scroll" value="yes"&gt;
+  &lt;/object&gt;
+&lt;script&gt;
+  //Example of how to access the variable from the IIFE in the main app context
+  console.log(myApp.myVariable);
+  myApp.myFunction();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Remember to replace "mydocument.pdf" with the actual path to your PDF file. This approach helps to isolate the JavaScript within the embedded object from the main page's JavaScript, avoiding potential conflicts.</p>
